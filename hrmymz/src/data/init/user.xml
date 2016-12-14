@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user name="管理员用户" loginName="admin" password="123456" roles="ROLE_ADMIN"/>
+    <user name="叶明珠" loginName="yemingzhu" password="123456" roles="ROLE_ADMIN"/>
+    <user name="测试用户" loginName="test" password="123456" roles="ROLE_PRIMARY"/>
+</users>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<permission>
+	<system name="人事管理系统" code="hrm" url="/hrmymz">
+		<module name="人事管理" sort="1">
+			<url name="员工管理" sort="1" href="/employee/list" funcs="base-employee-list">
+			<func name="查看" sort="1">
+				<code>
+					base-employee-list
+				</code>
+			</func>
+			</url>
+			<url name="部门管理" sort="2" href="/department/list" funcs="base-department-list">
+				<func name="查看" sort="1">
+					<code>
+						base-department-list
+					</code>
+				</func>
+			</url>
+			<url name="职位管理" sort="3" href="/job/list" funcs="base-job-list">
+				<func name="查看" sort="1">
+					<code>
+						base-job-list
+					</code>
+				</func>
+			</url>
+		</module>
+		<module name="帮助支持" sort="2">
+			<url name="公告管理" sort="1" href="/notice/list" funcs="base-notice-list">
+			<func name="查看" sort="1">
+				<code>
+					base-notice-list
+				</code>
+			</func>
+			</url>
+			<url name="下载中心" sort="2" href="/document/list" funcs="base-document-list">
+				<func name="查看" sort="1">
+					<code>
+						base-document-list
+					</code>
+				</func>
+			</url>
+		</module>
+		
+		<module name="系统管理" sort="3">
+			<url sort="1" name="用户管理" href="/user/list" funcs="base-user-list">
+				<func name="查看" sort="1">
+					<code>
+						base-user-list
+					</code>
+				</func>
+			</url>
+			<url sort="2" name="角色管理" href="/role/list" funcs="base-role-list">
+				<func name="查看" sort="1">
+					<code>
+						base-role-list
+					</code>
+				</func>
+			</url>
+			<url sort="3" name="权限管理" href="/permission/list" funcs="base-permission-list">
+				<func name="查看" sort="1">
+					<code>
+						base-permission-list
+					</code>
+				</func>
+			</url>
+			<url sort="3" name="数据字典管理" href="/dictionary/list" funcs="base-dictionary-list">
+				<func name="查看" sort="1">
+					<code>
+						base-dictionary-list
+					</code>
+				</func>
+			</url>
+		</module>
+	</system>
+</permission>

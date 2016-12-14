@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>hrmymz</display-name>
+  
+  <!-- shiro -->
+  <!-- shiro filter -->
+  <!-- 配置Shiro过滤器,先让Shiro过滤系统接收到的请求 -->
+  <!-- 这里filter-name必须对应applicationContext.xml中定义的<bean id="shiroFilter"/> -->
+  <!-- 使用[/*]匹配所有请求,保证所有的可控请求都经过Shiro的过滤 -->
+  <!-- 通常会将此filter-mapping放置到最前面(即其他filter-mapping前面),以保证它是过滤器链中第一个起作用的 --> 
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>shiroFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- spring -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring.xml,classpath:spring-hibernate.xml,classpath:spring-shiro.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  
+   <!-- spring mvc config -->
+  <servlet>
+    <servlet-name>springMvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- spring mvc mapping -->
+  <servlet-mapping>
+    <servlet-name>springMvc</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+   <!-- kaptcha验证码 -->
+  <servlet>
+    <servlet-name>kaptcha</servlet-name>
+    <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+    <init-param>
+    <!-- 图片宽度 -->
+      <param-name>kaptcha.image.width</param-name>
+      <param-value>81</param-value>
+    </init-param>
+    <init-param>
+    <!-- 图片高度 -->
+      <param-name>kaptcha.image.height</param-name>
+      <param-value>39</param-value>
+    </init-param>
+    <init-param>
+    <!-- 文字大小 -->
+      <param-name>kaptcha.textproducer.font.size</param-name>
+      <param-value>22</param-value>
+    </init-param>
+    <init-param>
+    <!-- 生成验证码的个数 -->
+      <param-name>kaptcha.textproducer.char.length</param-name>
+      <param-value>4</param-value>
+    </init-param>
+    <init-param>
+    	<!-- 边框颜色 -->
+      <param-name>kaptcha.border.color</param-name>
+      <param-value>192,208,218</param-value>
+    </init-param>
+    <init-param>
+    <!-- 噪音 -->
+      <param-name>kaptcha.noise.impl</param-name>
+      <param-value>com.google.code.kaptcha.impl.NoNoise</param-value>
+    </init-param>
+    <init-param>
+    <!-- 变形 -->
+      <param-name>kaptcha.obscurificator.impl</param-name>
+      <param-value>com.ymz.hrm.base.config.kaptcha.RippleGimpy</param-value>
+    </init-param>
+    <init-param>
+    <!-- 背景渐变颜色开始 -->
+      <param-name>kaptcha.background.clear.from</param-name>
+      <param-value>93,202,27</param-value>
+    </init-param>
+    <init-param>
+    <!-- 背景渐变颜色结束 -->
+      <param-name>kaptcha.background.clear.to</param-name>
+      <param-value>93,202,27</param-value>
+    </init-param>
+    <init-param>
+    <!-- 文字颜色 -->
+      <param-name>kaptcha.textproducer.font.color</param-name>
+      <param-value>255,255,255</param-value>
+    </init-param>
+      <init-param>
+      <!-- 字符间间隔 -->
+          <param-name>kaptcha.textproducer.char.space</param-name>
+          <param-value>5</param-value>
+      </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>kaptcha</servlet-name>
+    <url-pattern>/static/images/kaptcha.jpg</url-pattern>
+  </servlet-mapping>
+  
+  <!-- encoding -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- jsp标签 -->
+  <jsp-config>
+    <taglib>
+      <taglib-uri>/jstl1.1/core.tld</taglib-uri>
+      <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/jstl1.1/fmt.tld</taglib-uri>
+      <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/jstl1.1/fn.tld</taglib-uri>
+      <taglib-location>/WEB-INF/tld/fn.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>/shiro1.2.2/shiro.tld</taglib-uri>
+      <taglib-location>/WEB-INF/tld/shiro.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  
+   <!-- session -->
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
